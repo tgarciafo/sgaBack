@@ -31,6 +31,8 @@ Route::get('getLocation/{id}', [LocationsController::class, 'getLocation']);
 Route::get('getPalet/{sscc}', [PaletsController::class, 'getPalet']);
 Route::get('showId/{ean}', [ProductsController::class, 'showId']);
 Route::get('num_pal/{albara_entrada}', [PaletsController::class, 'num_pal']);
+Route::get('showEntries/{data}/{data2}', [PaletsController::class, 'showEntries']);
+Route::get('showPalEntries/{num_albara}', [PaletsController::class, 'showPalEntries']);
 
 
 

@@ -68,4 +68,26 @@ class PaletsController extends Controller
         $num_pal = Palets::where('albara_entrada', '=', $albara)->count();
         echo json_encode($num_pal);
     }
+
+    public function showEntries($data, $data2)
+   {
+        $entrada= Palets::select('palets.albara_entrada', 'palets.data_entrada', 'palets.client_id', 'clients.description_client', Palets::raw("COUNT(*) as num_palets"))
+        ->whereBetween('data_entrada', [$data, $data2])
+        ->join('clients', 'clients.client_id', '=', 'palets.client_id')
+        ->groupBy("albara_entrada", 'data_entrada', 'client_id', 'description_client')
+	    ->get();
+
+        echo json_encode($entrada);
+    }
+
+    public function showPalEntries($num_albara)
+   {
+        $palEntrada= Palets::select('palets.albara_entrada', 'palets.data_entrada', 'palets.sscc', 'products.quantity', 'palets.lot', 'palets.caducitat', 'products.description_prod' )
+        ->join('products', 'products.product_id', '=', 'palets.product_id')
+        ->where('albara_entrada', '=', $num_albara)
+	    ->get();
+
+        echo json_encode($palEntrada);
+    }
+
 }
