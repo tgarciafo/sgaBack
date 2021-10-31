@@ -90,4 +90,9 @@ class PaletsController extends Controller
         echo json_encode($palEntrada);
     }
 
+    public function getPalResta($product_id){
+        $numPal = Palets::where('product_id', '=', $product_id, 'and', 'data_sortida', 'is', 'null')->count();
+        echo json_encode($numPal);
+    }
+
 }

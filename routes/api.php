@@ -7,6 +7,8 @@ use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\LocationsController;
 use App\Http\Controllers\PaletsController;
+use App\Http\Controllers\PlanificationsController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -24,15 +26,20 @@ Route::resource('clients', ClientsController::class);
 Route::resource('products', ProductsController::class);
 Route::resource('locations', LocationsController::class);
 Route::resource('palets', PaletsController::class);
+Route::resource('planifications', PlanificationsController::class);
 Route::get('getUser/{id}', [UsersController::class, 'getUser']);
 Route::get('getClient/{id}', [ClientsController::class, 'getClient']);
 Route::get('getProduct/{id}', [ProductsController::class, 'getProduct']);
 Route::get('getLocation/{id}', [LocationsController::class, 'getLocation']);
 Route::get('getPalet/{sscc}', [PaletsController::class, 'getPalet']);
+Route::get('getPlanification/{id}', [PlanificationsController::class, 'getPlanification']);
 Route::get('showId/{ean}', [ProductsController::class, 'showId']);
 Route::get('num_pal/{albara_entrada}', [PaletsController::class, 'num_pal']);
 Route::get('showEntries/{data}/{data2}', [PaletsController::class, 'showEntries']);
 Route::get('showPalEntries/{num_albara}', [PaletsController::class, 'showPalEntries']);
+Route::get('getPalResta/{id}', [PaletsController::class, 'getPalResta']);
+Route::get('getPlanification/{albara_sortida}', [PlanificationsController::class, 'getPlanification']);
+
 
 
 
