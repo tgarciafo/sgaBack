@@ -41,6 +41,8 @@ Route::get('getPalResta/{id}', [PaletsController::class, 'getPalResta']);
 Route::get('getPlanification/{albara_sortida}', [PlanificationsController::class, 'getPlanification']);
 Route::get('getPlanifications/{albara_sortida}', [PlanificationsController::class, 'getPlanifications']);
 Route::get('num_pal_sortida/{albara_entrada}', [PlanificationsController::class, 'num_pal_sortida']);
+Route::get('showExpeditions/{data}/{data2}', [PaletsController::class, 'showExpeditions']);
+Route::get('showPalExpeditions/{num_albara}', [PaletsController::class, 'showPalExpeditions']);
 
 
 

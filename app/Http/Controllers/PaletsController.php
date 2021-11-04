@@ -95,4 +95,25 @@ class PaletsController extends Controller
         echo json_encode($numPal);
     }
 
+    public function showExpeditions($data, $data2)
+   {
+        $sortida= Palets::select('palets.albara_sortida', 'palets.data_sortida', 'palets.client_id', 'clients.description_client', Palets::raw("COUNT(*) as num_palets"))
+        ->whereBetween('data_sortida', [$data, $data2])
+        ->join('clients', 'clients.client_id', '=', 'palets.client_id')
+        ->groupBy("albara_sortida", 'data_sortida', 'client_id', 'description_client')
+	    ->get();
+
+        echo json_encode($sortida);
+    }
+
+    public function showPalExpeditions($num_albara)
+   {
+        $palSortida= Palets::select('palets.albara_sortida', 'palets.data_sortida', 'palets.sscc', 'products.quantity', 'palets.lot', 'palets.caducitat', 'products.description_prod' )
+        ->join('products', 'products.product_id', '=', 'palets.product_id')
+        ->where('albara_sortida', '=', $num_albara)
+	    ->get();
+
+        echo json_encode($palSortida);
+    }
+
 }
