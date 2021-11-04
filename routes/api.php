@@ -39,6 +39,8 @@ Route::get('showEntries/{data}/{data2}', [PaletsController::class, 'showEntries'
 Route::get('showPalEntries/{num_albara}', [PaletsController::class, 'showPalEntries']);
 Route::get('getPalResta/{id}', [PaletsController::class, 'getPalResta']);
 Route::get('getPlanification/{albara_sortida}', [PlanificationsController::class, 'getPlanification']);
+Route::get('getPlanifications/{albara_sortida}', [PlanificationsController::class, 'getPlanifications']);
+Route::get('num_pal_sortida/{albara_entrada}', [PlanificationsController::class, 'num_pal_sortida']);
 
 
 

@@ -64,4 +64,20 @@ class PlanificationsController extends Controller
         ->get();
             echo json_encode($planification);
         }
+
+    public function getPlanifications($albara_sortida){
+
+        $planification= Planifications::select('planifications.albara_sortida','planifications.product_id', 'products.description_prod')
+        ->where('albara_sortida', '=', $albara_sortida)
+        ->join('products', 'products.product_id', '=', 'planifications.product_id')
+        ->get();
+            echo json_encode($planification);
+    }
+
+    public function num_pal_sortida($albara)
+    {
+
+        $num_pal = Planifications::where('albara_sortida', '=', $albara)->count();
+        echo json_encode($num_pal);
+    }
 }
