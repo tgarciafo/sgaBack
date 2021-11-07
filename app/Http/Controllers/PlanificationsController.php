@@ -57,10 +57,10 @@ class PlanificationsController extends Controller
 
     public function getPlanification($albara_sortida){
 
-        $planification= Planifications::select('planifications.albara_sortida','planifications.product_id', 'products.description_prod', Planifications::raw("COUNT(*) as num_palets"))
+        $planification= Planifications::select('planifications.planification_id','planifications.albara_sortida','planifications.product_id', 'products.description_prod', Planifications::raw("COUNT(*) as num_palets"))
         ->where('albara_sortida', '=', $albara_sortida)
         ->join('products', 'products.product_id', '=', 'planifications.product_id')
-        ->groupBy("product_id", 'albara_sortida', 'description_prod')
+        ->groupBy('product_id')
         ->get();
             echo json_encode($planification);
         }

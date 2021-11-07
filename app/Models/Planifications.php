@@ -9,6 +9,8 @@ class Planifications extends Model
 {
     use HasFactory;
 
+    protected $primaryKey='planification_id';
+
     protected $fillable = [
         'data_sortida', 'sscc', 'albara_sortida', 'product_id', 'user_id'
     ];
