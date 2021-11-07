@@ -63,10 +63,11 @@ class BloquejatsController extends Controller
 
     public function getBloquejats(){
 
-        $bloquejats= Bloquejats::select('palets.sscc', 'clients.description_client','products.description_prod', 'palets.caducitat')
+        $bloquejats= Bloquejats::select('palets.sscc', 'clients.description_client','products.description_prod', 'palets.caducitat', 'locations.location_description')
         ->leftJoin('palets', 'palets.sscc','=', 'bloquejats.sscc')
         ->leftJoin('clients', 'clients.client_id','=', 'palets.client_id')
         ->leftJoin('products', 'products.product_id','=', 'palets.product_id')
+        ->leftJoin('locations', 'locations.location_id', '=', 'palets.location_id')
         ->whereNull('palets.albara_sortida')
         ->get();
         
