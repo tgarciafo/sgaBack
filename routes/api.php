@@ -46,6 +46,8 @@ Route::get('num_pal_sortida/{albara_entrada}', [PlanificationsController::class,
 Route::get('showExpeditions/{data}/{data2}', [PaletsController::class, 'showExpeditions']);
 Route::get('showPalExpeditions/{num_albara}', [PaletsController::class, 'showPalExpeditions']);
 Route::get('getBloquejats', [BloquejatsController::class, 'getBloquejats']);
+Route::delete('destroy/{product_id}/{albara_sortida}', [PlanificationsController::class, 'destroy']);
+
 
 
 

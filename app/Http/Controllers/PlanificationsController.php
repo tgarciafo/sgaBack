@@ -49,10 +49,13 @@ class PlanificationsController extends Controller
      * @param  \App\Models\Planifications  $planification
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Planifications $planification)
+    public function destroy($product, $albara_sortida)
     {
-        $planification->delete();
-        echo json_encode($planification);
+        $planifications = Planifications::where('product_id', $product)
+        ->where('albara_sortida', $albara_sortida)        
+        ->delete();
+
+        echo json_encode($planifications);
     }
 
     public function getPlanification($albara_sortida){
