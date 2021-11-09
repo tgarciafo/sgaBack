@@ -59,5 +59,13 @@ class ClientsController extends Controller
 
         $client= Clients::where('client_id', '=', $id)->get();
             echo json_encode($client);
-        }
+    }
+
+    public function addUserClient($client_id, $user_id){
+
+        $client= Clients::where('client_id', '=', $client_id)
+            ->update(array('user_id' => $user_id));
+            echo json_encode($client);
+    }
+
 }
