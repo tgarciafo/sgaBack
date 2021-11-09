@@ -49,9 +49,10 @@ class BloquejatsController extends Controller
      * @param  \App\Models\Bloquejats  $bloquejats
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Bloquejats $bloquejats)
+    public function destroy($id)
     {
-        $bloquejats->delete();
+        $bloquejats= Bloquejats::where('bloquejat_id', $id)        
+        ->delete();
         echo json_encode($bloquejats);
     }
 
@@ -63,7 +64,7 @@ class BloquejatsController extends Controller
 
     public function getBloquejats(){
 
-        $bloquejats= Bloquejats::select('palets.sscc', 'clients.description_client','products.description_prod', 'palets.caducitat', 'locations.location_description')
+        $bloquejats= Bloquejats::select('bloquejats.bloquejat_id','palets.sscc', 'clients.description_client','products.description_prod', 'palets.caducitat', 'locations.location_description')
         ->leftJoin('palets', 'palets.sscc','=', 'bloquejats.sscc')
         ->leftJoin('clients', 'clients.client_id','=', 'palets.client_id')
         ->leftJoin('products', 'products.product_id','=', 'palets.product_id')
