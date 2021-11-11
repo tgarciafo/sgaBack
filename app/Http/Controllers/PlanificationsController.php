@@ -83,4 +83,15 @@ class PlanificationsController extends Controller
         $num_pal = Planifications::where('albara_sortida', '=', $albara)->count();
         echo json_encode($num_pal);
     }
+
+    public function destroyLine($product_id, $albara_sortida)
+    {
+
+        $planifications = Planifications::where('product_id', $product_id)
+        ->where('albara_sortida', $albara_sortida)
+        ->first()       
+        ->delete();
+
+        echo json_encode($albara_sortida);
+    }
 }

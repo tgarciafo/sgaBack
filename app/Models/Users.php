@@ -10,7 +10,7 @@ class Users extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'password', 'email', 'type', 'user_name'
+        'name', 'password', 'email', 'type', 'client_id'
     ];
 
     public $timestamps = false;

@@ -48,6 +48,10 @@ Route::get('showPalExpeditions/{num_albara}', [PaletsController::class, 'showPal
 Route::get('getBloquejats', [BloquejatsController::class, 'getBloquejats']);
 Route::delete('destroy/{product_id}/{albara_sortida}', [PlanificationsController::class, 'destroy']);
 Route::put('addUserClient/{client_id}/{user_id}', [ClientsController::class, 'addUserClient']);
+Route::put('expeditionPal/{sscc}/{albara_sortida}/{data_sortida}', [PaletsController::class, 'expeditionPal']);
+Route::delete('destroyLine/{product_id}/{albara_sortida}', [PlanificationsController::class, 'destroyLine']);
+
+
 
 
 

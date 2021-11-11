@@ -10,7 +10,7 @@ class Clients extends Model
     use HasFactory;
 
     protected $fillable = [
-        'client_code', 'description_client', 'user_id'
+        'client_code', 'description_client'
     ];
 
     public function users()

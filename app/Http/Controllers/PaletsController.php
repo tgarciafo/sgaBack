@@ -116,4 +116,14 @@ class PaletsController extends Controller
         echo json_encode($palSortida);
     }
 
+    public function expeditionPal($sscc, $albara_sortida, $data_sortida){
+        $result= Palets::where('sscc', $sscc)
+        ->update(array('albara_sortida'=>$albara_sortida, 'data_sortida' =>$data_sortida));
+
+        $palet = Palets::where('sscc', $sscc)
+        ->get();
+
+        echo json_encode($palet);
+    }
+
 }
