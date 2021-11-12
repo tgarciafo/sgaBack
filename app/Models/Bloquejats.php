@@ -9,6 +9,8 @@ class Bloquejats extends Model
 {
     use HasFactory;
 
+    protected $primaryKey='bloquejat_id';
+
     protected $fillable = [
         'sscc'
     ];
