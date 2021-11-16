@@ -94,4 +94,22 @@ class PlanificationsController extends Controller
 
         echo json_encode($albara_sortida);
     }
+
+    public function consultaPlanifications(){
+
+        $planifications= Planifications::select('planifications.albara_sortida', 'clients.description_client', Planifications::raw("COUNT(*) as num_palets"))
+        ->join('products', 'products.product_id', '=', 'planifications.product_id')
+        ->join('clients', 'clients.client_id', '=', 'products.client_id')
+        ->groupBy('albara_sortida')
+        ->get();
+            echo json_encode($planifications);
+    }
+
+        public function destroyEntire($albara_sortida)
+    {
+        $planifications = Planifications::where('albara_sortida', $albara_sortida)        
+        ->delete();
+
+        echo json_encode($planifications);
+    }
 }
