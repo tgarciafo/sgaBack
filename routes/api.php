@@ -53,6 +53,10 @@ Route::delete('destroyLine/{product_id}/{albara_sortida}', [PlanificationsContro
 Route::get('consultaPlanifications', [PlanificationsController::class, 'consultaPlanifications']);
 Route::delete('destroyEntire/{albara_sortida}', [PlanificationsController::class, 'destroyEntire']);
 Route::get('estocClient/{idClient}/{data}', [PaletsController::class, 'estocClient']);
+Route::get('getClientProduct/{client_id}', [ProductsController::class, 'getClientProduct']);
+Route::get('estocProduct/{product_id}/{data}', [PaletsController::class, 'estocProduct']);
+
+
 
 
 

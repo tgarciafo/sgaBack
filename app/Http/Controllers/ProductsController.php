@@ -65,4 +65,10 @@ class ProductsController extends Controller
         $producte= Products::where('ean', '=', $ean)->first();
         echo json_encode($producte);
     }
+
+    public function getClientProduct($client_id){
+
+        $products= Products::where('client_id', '=', $client_id)->get();
+            echo json_encode($products);
+        }
 }
