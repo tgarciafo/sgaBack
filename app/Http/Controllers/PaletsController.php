@@ -126,4 +126,20 @@ class PaletsController extends Controller
         echo json_encode($palet);
     }
 
+    public function estocClient($idClient, $data){
+        $estoc= Palets::select('products.description_prod', 'palets.caducitat', 'clients.description_client',Palets::raw("COUNT(*) as num_palets"))
+        ->join('products', 'products.product_id', '=', 'palets.product_id')
+        ->join('clients', 'clients.client_id', '=', 'palets.client_id')
+        ->where('palets.client_id', '=', $idClient)
+        ->where('palets.data_entrada', '<=', $data)
+        ->where(function ($query)  use ($data) {
+            $query->where('palets.data_sortida', '>', $data)
+            ->orWhereNull('palets.data_sortida');
+        })        
+        ->groupBy('palets.caducitat', 'products.description_prod')
+        ->get();
+
+        echo json_encode($estoc);
+    }
+
 }

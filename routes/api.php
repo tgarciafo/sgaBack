@@ -52,6 +52,8 @@ Route::put('expeditionPal/{sscc}/{albara_sortida}/{data_sortida}', [PaletsContro
 Route::delete('destroyLine/{product_id}/{albara_sortida}', [PlanificationsController::class, 'destroyLine']);
 Route::get('consultaPlanifications', [PlanificationsController::class, 'consultaPlanifications']);
 Route::delete('destroyEntire/{albara_sortida}', [PlanificationsController::class, 'destroyEntire']);
+Route::get('estocClient/{idClient}/{data}', [PaletsController::class, 'estocClient']);
+
 
 
 
