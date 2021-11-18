@@ -158,4 +158,56 @@ class PaletsController extends Controller
         echo json_encode($estoc);
     }
 
+    public function estocUbicacio($client_id, $location_id, $data){
+
+        if ($client_id != '0'){
+
+        $estoc= Palets::select('products.description_prod', 'locations.location_description', 'palets.caducitat', 'clients.description_client',Palets::raw("COUNT(*) as num_palets"))
+        ->join('products', 'products.product_id', '=', 'palets.product_id')
+        ->join('clients', 'clients.client_id', '=', 'palets.client_id')
+        ->join('locations', 'locations.location_id', '=', 'palets.location_id')
+        ->where('palets.location_id', '=', $location_id)
+        ->where('palets.client_id', '=', $client_id)
+        ->where('palets.data_entrada', '<=', $data)
+        ->where(function ($query)  use ($data) {
+            $query->where('palets.data_sortida', '>', $data)
+            ->orWhereNull('palets.data_sortida');
+        })        
+        ->groupBy('palets.caducitat')
+        ->get();
+
+        echo json_encode($estoc);
+
+    } else {
+
+        $estoc= Palets::select('products.description_prod', 'locations.location_description', 'palets.caducitat', 'clients.description_client',Palets::raw("COUNT(*) as num_palets"))
+        ->join('products', 'products.product_id', '=', 'palets.product_id')
+        ->join('clients', 'clients.client_id', '=', 'palets.client_id')
+        ->join('locations', 'locations.location_id', '=', 'palets.location_id')
+        ->where('palets.location_id', '=', $location_id)
+        ->where('palets.data_entrada', '<=', $data)
+        ->where(function ($query)  use ($data) {
+            $query->where('palets.data_sortida', '>', $data)
+            ->orWhereNull('palets.data_sortida');
+        })        
+        ->groupBy('palets.caducitat')
+        ->get();
+
+        echo json_encode($estoc);
+    }
+
+    }
+
+    public function estocAlbara($num_albara){
+
+        $estoc= Palets::select('palets.albara_entrada', 'palets.data_entrada', 'palets.albara_sortida', 'palets.data_sortida', 'products.quantity', 'palets.lot', 'palets.sscc', 'products.description_prod', 'palets.caducitat', 'clients.description_client')
+        ->join('products', 'products.product_id', '=', 'palets.product_id')
+        ->join('clients', 'clients.client_id', '=', 'palets.client_id')
+        ->where('palets.albara_entrada', '=', $num_albara)
+        ->orwhere('palets.albara_sortida', '=', $num_albara)  
+        ->get();
+
+        echo json_encode($estoc);
+    }
+
 }

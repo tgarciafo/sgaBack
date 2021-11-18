@@ -55,6 +55,10 @@ Route::delete('destroyEntire/{albara_sortida}', [PlanificationsController::class
 Route::get('estocClient/{idClient}/{data}', [PaletsController::class, 'estocClient']);
 Route::get('getClientProduct/{client_id}', [ProductsController::class, 'getClientProduct']);
 Route::get('estocProduct/{product_id}/{data}', [PaletsController::class, 'estocProduct']);
+Route::get('estocUbicacio/{client_id}/{location_id}/{data}', [PaletsController::class, 'estocUbicacio']);
+Route::get('estocAlbara/{num_albara}', [PaletsController::class, 'estocAlbara']);
+
+
 
 
 
