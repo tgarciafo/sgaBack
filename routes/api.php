@@ -57,6 +57,7 @@ Route::get('getClientProduct/{client_id}', [ProductsController::class, 'getClien
 Route::get('estocProduct/{product_id}/{data}', [PaletsController::class, 'estocProduct']);
 Route::get('estocUbicacio/{client_id}/{location_id}/{data}', [PaletsController::class, 'estocUbicacio']);
 Route::get('estocAlbara/{num_albara}', [PaletsController::class, 'estocAlbara']);
+Route::get('estocLot/{client_id}/{product_id}/{data}', [PaletsController::class, 'estocLot']);
 
 
 
