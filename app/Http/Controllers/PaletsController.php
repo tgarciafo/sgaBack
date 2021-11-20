@@ -127,7 +127,7 @@ class PaletsController extends Controller
     }
 
     public function estocClient($idClient, $data){
-        $estoc= Palets::select('products.description_prod', 'palets.caducitat', 'clients.description_client',Palets::raw("COUNT(*) as num_palets"))
+        $estoc= Palets::select('products.description_prod', 'products.reference','palets.caducitat', 'clients.description_client',Palets::raw("COUNT(*) as num_palets"))
         ->join('products', 'products.product_id', '=', 'palets.product_id')
         ->join('clients', 'clients.client_id', '=', 'palets.client_id')
         ->where('palets.client_id', '=', $idClient)
@@ -143,7 +143,7 @@ class PaletsController extends Controller
     }
 
     public function estocProduct($product_id, $data){
-        $estoc= Palets::select('products.description_prod', 'palets.caducitat', 'clients.description_client',Palets::raw("COUNT(*) as num_palets"))
+        $estoc= Palets::select('products.description_prod', 'products.reference', 'palets.caducitat', 'clients.description_client',Palets::raw("COUNT(*) as num_palets"))
         ->join('products', 'products.product_id', '=', 'palets.product_id')
         ->join('clients', 'clients.client_id', '=', 'palets.client_id')
         ->where('palets.product_id', '=', $product_id)
