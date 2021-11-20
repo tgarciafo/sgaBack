@@ -58,6 +58,7 @@ Route::get('estocProduct/{product_id}/{data}', [PaletsController::class, 'estocP
 Route::get('estocUbicacio/{client_id}/{location_id}/{data}', [PaletsController::class, 'estocUbicacio']);
 Route::get('estocAlbara/{num_albara}', [PaletsController::class, 'estocAlbara']);
 Route::get('estocLot/{client_id}/{product_id}/{data}', [PaletsController::class, 'estocLot']);
+Route::get('consultaSSCC/{num_sscc}', [PaletsController::class, 'consultaSSCC']);
 
 
 

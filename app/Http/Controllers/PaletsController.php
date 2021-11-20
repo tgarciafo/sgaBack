@@ -248,4 +248,15 @@ class PaletsController extends Controller
 
     }
 
+    public function consultaSSCC($num_sscc){
+
+        $consulta= Palets::select('palets.albara_entrada', 'palets.data_entrada', 'palets.albara_sortida', 'palets.data_sortida', 'products.quantity', 'palets.lot', 'palets.sscc', 'products.description_prod', 'palets.caducitat', 'clients.description_client')
+        ->join('products', 'products.product_id', '=', 'palets.product_id')
+        ->join('clients', 'clients.client_id', '=', 'palets.client_id')
+        ->where('palets.sscc', '=', $num_sscc)
+        ->get();
+
+        echo json_encode($consulta);
+    }
+
 }
