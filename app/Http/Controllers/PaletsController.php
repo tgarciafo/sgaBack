@@ -259,4 +259,41 @@ class PaletsController extends Controller
         echo json_encode($consulta);
     }
 
+    public function consultaSsccProduct($product_id, $data, $caducitat){
+
+        if($caducitat != '0000-00-00'){
+
+        $consulta= Palets::select('products.description_prod', 'products.reference', 'palets.caducitat', 'clients.description_client', 'palets.sscc')
+        ->join('products', 'products.product_id', '=', 'palets.product_id')
+        ->join('clients', 'clients.client_id', '=', 'palets.client_id')
+        ->where('palets.product_id', '=', $product_id)
+        ->where('palets.data_entrada', '<=', $data)
+        ->where('palets.caducitat', '=', $caducitat)
+        ->where(function ($query)  use ($data) {
+            $query->where('palets.data_sortida', '>', $data)
+            ->orWhereNull('palets.data_sortida');
+        })        
+        ->get();
+
+        echo json_encode($consulta);
+    } else {
+
+        $consulta= Palets::select('products.description_prod', 'products.reference', 'palets.caducitat', 'clients.description_client', 'palets.sscc')
+        ->join('products', 'products.product_id', '=', 'palets.product_id')
+        ->join('clients', 'clients.client_id', '=', 'palets.client_id')
+        ->where('palets.product_id', '=', $product_id)
+        ->where('palets.data_entrada', '<=', $data)
+        ->where(function ($query)  use ($data) {
+            $query->where('palets.data_sortida', '>', $data)
+            ->orWhereNull('palets.data_sortida');
+        })        
+        ->get();
+
+        echo json_encode($consulta);
+
+    }
+
+
+    }
+
 }
