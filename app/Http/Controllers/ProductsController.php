@@ -14,7 +14,10 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $products= Products::get();
+        $products= Products::select('products.product_id', 'products.ean', 'products.reference', 'products.quantity', 'products.client_id', 'clients.description_client', 'products.description_prod')
+        ->join('clients', 'clients.client_id', '=', 'products.client_id')
+	    ->get();
+
         echo json_encode($products);
     }
 
@@ -68,7 +71,11 @@ class ProductsController extends Controller
 
     public function getClientProduct($client_id){
 
-        $products= Products::where('client_id', '=', $client_id)->get();
+        $products= Products::select('products.product_id', 'products.ean', 'products.reference', 'products.quantity', 'products.client_id', 'clients.description_client', 'products.description_prod')
+            ->join('clients', 'clients.client_id', '=', 'products.client_id')        
+            ->where('products.client_id', '=', $client_id)
+            ->get();
+
             echo json_encode($products);
         }
 }

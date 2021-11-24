@@ -55,7 +55,7 @@ class PlanificationsController extends Controller
         ->where('albara_sortida', $albara_sortida)        
         ->delete();
 
-        echo json_encode($planifications);
+        echo json_encode($albara_sortida);
     }
 
     public function getPlanification($albara_sortida){
