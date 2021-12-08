@@ -82,7 +82,7 @@ class PaletsController extends Controller
 
     public function showPalEntries($num_albara)
    {
-        $palEntrada= Palets::select('palets.albara_entrada', 'palets.data_entrada', 'palets.sscc', 'products.quantity', 'palets.lot', 'palets.caducitat', 'products.description_prod' )
+        $palEntrada= Palets::select('palets.albara_entrada', 'palets.data_entrada', 'palets.sscc', 'palets.qty', 'palets.lot', 'palets.caducitat', 'products.description_prod' )
         ->join('products', 'products.product_id', '=', 'palets.product_id')
         ->where('albara_entrada', '=', $num_albara)
 	    ->get();
@@ -108,7 +108,7 @@ class PaletsController extends Controller
 
     public function showPalExpeditions($num_albara)
    {
-        $palSortida= Palets::select('palets.albara_sortida', 'palets.data_sortida', 'palets.sscc', 'products.quantity', 'palets.lot', 'palets.caducitat', 'products.description_prod' )
+        $palSortida= Palets::select('palets.albara_sortida', 'palets.data_sortida', 'palets.sscc', 'palets.qty', 'palets.lot', 'palets.caducitat', 'products.description_prod' )
         ->join('products', 'products.product_id', '=', 'palets.product_id')
         ->where('albara_sortida', '=', $num_albara)
 	    ->get();
@@ -200,7 +200,7 @@ class PaletsController extends Controller
 
     public function estocAlbara($num_albara){
 
-        $estoc= Palets::select('palets.albara_entrada', 'palets.data_entrada', 'palets.albara_sortida', 'palets.data_sortida', 'products.quantity', 'palets.lot', 'palets.sscc', 'products.description_prod', 'palets.caducitat', 'clients.description_client')
+        $estoc= Palets::select('palets.albara_entrada', 'palets.data_entrada', 'palets.albara_sortida', 'palets.data_sortida', 'palets.qty', 'palets.lot', 'palets.sscc', 'products.description_prod', 'palets.caducitat', 'clients.description_client')
         ->join('products', 'products.product_id', '=', 'palets.product_id')
         ->join('clients', 'clients.client_id', '=', 'palets.client_id')
         ->where('palets.albara_entrada', '=', $num_albara)
@@ -250,9 +250,10 @@ class PaletsController extends Controller
 
     public function consultaSSCC($num_sscc){
 
-        $consulta= Palets::select('palets.albara_entrada', 'palets.data_entrada', 'palets.albara_sortida', 'palets.data_sortida', 'products.quantity', 'palets.lot', 'palets.sscc', 'products.description_prod', 'palets.caducitat', 'clients.description_client')
+        $consulta= Palets::select('palets.albara_entrada', 'palets.data_entrada', 'palets.albara_sortida', 'palets.data_sortida', 'palets.qty', 'palets.lot', 'palets.sscc', 'locations.location_description','products.description_prod', 'palets.caducitat', 'clients.description_client')
         ->join('products', 'products.product_id', '=', 'palets.product_id')
         ->join('clients', 'clients.client_id', '=', 'palets.client_id')
+        ->join('locations', 'locations.location_id', '=', 'palets.location_id')
         ->where('palets.sscc', '=', $num_sscc)
         ->get();
 

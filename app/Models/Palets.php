@@ -10,7 +10,7 @@ class Palets extends Model
     use HasFactory;
 
     protected $fillable = [
-        'sscc', 'product_id', 'data_entrada', 'client_id', 'albara_entrada', 'lot', 'caducitat', 'albara_sortida', 'data_sortida', 'location_id'
+        'sscc', 'product_id', 'data_entrada', 'client_id', 'albara_entrada', 'lot', 'qty', 'caducitat', 'albara_sortida', 'data_sortida', 'location_id'
     ];
 
     public function clients()
