@@ -60,6 +60,8 @@ Route::get('estocAlbara/{num_albara}', [PaletsController::class, 'estocAlbara'])
 Route::get('estocLot/{client_id}/{product_id}/{data}', [PaletsController::class, 'estocLot']);
 Route::get('consultaSSCC/{num_sscc}', [PaletsController::class, 'consultaSSCC']);
 Route::get('consultaSsccProduct/{product_id}/{data}/{caducitat}', [PaletsController::class, 'consultaSsccProduct']);
+Route::get('getExpedits/{sscc}', [PaletsController::class, 'getExpedits']);
+
 
 
 

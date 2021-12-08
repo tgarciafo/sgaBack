@@ -292,8 +292,17 @@ class PaletsController extends Controller
         echo json_encode($consulta);
 
     }
+    }
 
+    public function getExpedits($sscc){
 
+        $palet= Palets::select('palets.albara_sortida', 'palets.sscc', 'products.product_id', 'bloquejats.bloquejat_id')
+        ->leftJoin('products', 'products.product_id', '=', 'palets.product_id')
+        ->leftJoin('bloquejats', 'bloquejats.sscc', '=', 'palets.sscc')
+        ->where('palets.sscc', '=', $sscc)
+        ->get();
+
+        echo json_encode($palet);
     }
 
 }
