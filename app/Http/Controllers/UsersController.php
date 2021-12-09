@@ -37,11 +37,21 @@ class UsersController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Users $users)
-    {
-        $users->update($request->all());
-        echo json_encode($users);
-    }
+
+    public function update(Request $request,$id){
+
+        $data['name'] = $request['name'];
+        $data['email'] = $request['email'];
+        $data['password'] = $request['password'];
+        $data['type'] = $request['type'];
+        $data['client_id'] = $request['client_id'];
+
+        Users::where('user_id', $id)->update($data);
+        return response()->json([
+            'message' => "Successfully updated",
+            'success' => true
+        ], 200);
+      }
 
     /**
      * Remove the specified resource from storage.
@@ -49,15 +59,24 @@ class UsersController extends Controller
      * @param  \App\Models\Users  $users
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Users $users)
+    public function destroy($id)
     {
-        $users->delete();
-        echo json_encode($users);
+        $id=Users::where('user_id', $id)
+        ->delete();
+        echo json_encode($id);
     }
 
     public function getUser($id){
 
         $user= Users::where('user_id', '=', $id)->get();
+            echo json_encode($user);
+    }
+
+    public function getUsers(){
+
+        $user= Users::select('users.user_id', 'users.name', 'users.password', 'users.email', 'users.type', 'users.client_id', 'clients.description_client')
+        ->leftJoin('clients', 'clients.client_id', '=', 'users.client_id')
+        ->get();
             echo json_encode($user);
         }
 }

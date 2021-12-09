@@ -40,10 +40,19 @@ class ProductsController extends Controller
      * @param  \App\Models\Products  $products
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Products $products)
+    public function update(Request $request, $id)
     {
-        $products->update($request->all());
-        echo json_encode($products);
+        $data['client_id'] = $request['client_id'];
+        $data['description_prod'] = $request['description_prod'];
+        $data['reference'] = $request['reference'];
+        $data['ean'] = $request['ean'];
+        $data['quantity'] = $request['quantity'];
+
+        Products::where('product_id', $id)->update($data);
+        return response()->json([
+            'message' => "Successfully updated",
+            'success' => true
+        ], 200);
     }
 
     /**
@@ -52,10 +61,11 @@ class ProductsController extends Controller
      * @param  \App\Models\Products  $products
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Products $products)
+    public function destroy($id)
     {
-        $products->delete();
-        echo json_encode($products);
+        $id=Products::where('product_id', $id)
+        ->delete();
+        echo json_encode($id);
     }
 
     public function getProduct($id){

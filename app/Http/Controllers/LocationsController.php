@@ -37,10 +37,15 @@ class LocationsController extends Controller
      * @param  \App\Models\Locations  $location
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Locations $locations)
+    public function update(Request $request, $id)
     {
-        $locations->update($request->all());
-        echo json_encode($locations);
+        $data['location_description'] = $request['location_description'];
+
+        Locations::where('location_id', $id)->update($data);
+        return response()->json([
+            'message' => "Successfully updated",
+            'success' => true
+        ], 200);
     }
 
     /**
@@ -49,10 +54,11 @@ class LocationsController extends Controller
      * @param  \App\Models\Locations  $locations
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Locations $locations)
+    public function destroy($id)
     {
-        $locations->delete();
-        echo json_encode($locations);
+        $id=Locations::where('location_id', $id)
+        ->delete();
+        echo json_encode($id);
     }
 
     public function getLocation($id){

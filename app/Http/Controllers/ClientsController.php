@@ -37,10 +37,16 @@ class ClientsController extends Controller
      * @param  \App\Models\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Clients $clients)
+    public function update(Request $request, $id)
     {
-        $clients->update($request->all());
-        echo json_encode($clients);
+        $data['client_code'] = $request['client_code'];
+        $data['description_client'] = $request['description_client'];
+
+        Clients::where('client_id', $id)->update($data);
+        return response()->json([
+            'message' => "Successfully updated",
+            'success' => true
+        ], 200);
     }
 
     /**
@@ -49,10 +55,11 @@ class ClientsController extends Controller
      * @param  \App\Models\Clients  $clients
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Clients $clients)
+    public function destroy($id)
     {
-        $clients->delete();
-        echo json_encode($clients);
+        $id=Clients::where('client_id', $id)
+        ->delete();
+        echo json_encode($id);
     }
 
     public function getClient($id){
