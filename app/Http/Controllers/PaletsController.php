@@ -69,8 +69,10 @@ class PaletsController extends Controller
         echo json_encode($num_pal);
     }
 
-    public function showEntries($data, $data2)
+    public function showEntries($data, $data2, $idClient)
    {
+        if($idClient == '0'){
+
         $entrada= Palets::select('palets.albara_entrada', 'palets.data_entrada', 'palets.client_id', 'clients.description_client', Palets::raw("COUNT(*) as num_palets"))
         ->whereBetween('data_entrada', [$data, $data2])
         ->join('clients', 'clients.client_id', '=', 'palets.client_id')
@@ -78,6 +80,17 @@ class PaletsController extends Controller
 	    ->get();
 
         echo json_encode($entrada);
+        } else {
+            $entrada= Palets::select('palets.albara_entrada', 'palets.data_entrada', 'palets.client_id', 'clients.description_client', Palets::raw("COUNT(*) as num_palets"))
+        ->where('palets.client_id', $idClient)
+        ->whereBetween('data_entrada', [$data, $data2])
+        ->join('clients', 'clients.client_id', '=', 'palets.client_id')
+        ->groupBy("albara_entrada", 'data_entrada', 'client_id', 'description_client')
+	    ->get();
+
+        echo json_encode($entrada);
+
+        }
     }
 
     public function showPalEntries($num_albara)
@@ -95,8 +108,10 @@ class PaletsController extends Controller
         echo json_encode($numPal);
     }
 
-    public function showExpeditions($data, $data2)
+    public function showExpeditions($data, $data2, $idClient)
    {
+    if($idClient == '0'){
+
         $sortida= Palets::select('palets.albara_sortida', 'palets.data_sortida', 'palets.client_id', 'clients.description_client', Palets::raw("COUNT(*) as num_palets"))
         ->whereBetween('data_sortida', [$data, $data2])
         ->join('clients', 'clients.client_id', '=', 'palets.client_id')
@@ -104,6 +119,18 @@ class PaletsController extends Controller
 	    ->get();
 
         echo json_encode($sortida);
+
+    } else {
+
+        $sortida= Palets::select('palets.albara_sortida', 'palets.data_sortida', 'palets.client_id', 'clients.description_client', Palets::raw("COUNT(*) as num_palets"))
+        ->where('palets.client_id', $idClient)
+        ->whereBetween('data_sortida', [$data, $data2])
+        ->join('clients', 'clients.client_id', '=', 'palets.client_id')
+        ->groupBy("albara_sortida", 'data_sortida', 'client_id', 'description_client')
+	    ->get();
+
+        echo json_encode($sortida);
+    }
     }
 
     public function showPalExpeditions($num_albara)
@@ -198,7 +225,9 @@ class PaletsController extends Controller
 
     }
 
-    public function estocAlbara($num_albara){
+    public function estocAlbara($num_albara, $client_id){
+
+        if($client_id == '0'){
 
         $estoc= Palets::select('palets.albara_entrada', 'palets.data_entrada', 'palets.albara_sortida', 'palets.data_sortida', 'palets.qty', 'palets.lot', 'palets.sscc', 'products.description_prod', 'palets.caducitat', 'clients.description_client')
         ->join('products', 'products.product_id', '=', 'palets.product_id')
@@ -208,6 +237,22 @@ class PaletsController extends Controller
         ->get();
 
         echo json_encode($estoc);
+        } else {
+
+            $estoc= Palets::select('palets.albara_entrada', 'palets.data_entrada', 'palets.albara_sortida', 'palets.data_sortida', 'palets.qty', 'palets.lot', 'palets.sscc', 'products.description_prod', 'palets.caducitat', 'clients.description_client')
+        ->join('products', 'products.product_id', '=', 'palets.product_id')
+        ->join('clients', 'clients.client_id', '=', 'palets.client_id')
+        ->where('palets.client_id', '=', $client_id)
+        ->where(function($query) use ($num_albara){
+            $query->where('palets.albara_entrada', '=', $num_albara)
+            ->orwhere('palets.albara_sortida', '=', $num_albara);  
+        })        
+        ->get();
+
+        echo json_encode($estoc);
+
+        }
+
     }
 
     public function estocLot($client_id, $product_id, $data){
@@ -248,7 +293,9 @@ class PaletsController extends Controller
 
     }
 
-    public function consultaSSCC($num_sscc){
+    public function consultaSSCC($num_sscc, $idClient){
+
+        if($idClient == '0'){
 
         $consulta= Palets::select('palets.albara_entrada', 'palets.data_entrada', 'palets.albara_sortida', 'palets.data_sortida', 'palets.qty', 'palets.lot', 'palets.sscc', 'locations.location_description','products.description_prod', 'palets.caducitat', 'clients.description_client')
         ->join('products', 'products.product_id', '=', 'palets.product_id')
@@ -258,6 +305,18 @@ class PaletsController extends Controller
         ->get();
 
         echo json_encode($consulta);
+        } else {
+            $consulta= Palets::select('palets.albara_entrada', 'palets.data_entrada', 'palets.albara_sortida', 'palets.data_sortida', 'palets.qty', 'palets.lot', 'palets.sscc', 'locations.location_description','products.description_prod', 'palets.caducitat', 'clients.description_client')
+            ->join('products', 'products.product_id', '=', 'palets.product_id')
+            ->join('clients', 'clients.client_id', '=', 'palets.client_id')
+            ->join('locations', 'locations.location_id', '=', 'palets.location_id')
+            ->where('palets.sscc', '=', $num_sscc)
+            ->where('palets.client_id', '=', $idClient)
+            ->get();
+
+            echo json_encode($consulta);
+
+        }
     }
 
     public function consultaSsccProduct($product_id, $data, $caducitat){

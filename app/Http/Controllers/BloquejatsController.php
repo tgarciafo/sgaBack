@@ -62,7 +62,36 @@ class BloquejatsController extends Controller
             echo json_encode($bloquejats);
     }
 
-    public function getBloquejats(){
+    public function getBloquejats($client_id){
+
+        if($client_id == '0'){
+
+        $bloquejats= Bloquejats::select('bloquejats.bloquejat_id','palets.sscc', 'clients.description_client','products.description_prod', 'palets.caducitat', 'locations.location_description', 'palets.client_id')
+        ->leftJoin('palets', 'palets.sscc','=', 'bloquejats.sscc')
+        ->leftJoin('clients', 'clients.client_id','=', 'palets.client_id')
+        ->leftJoin('products', 'products.product_id','=', 'palets.product_id')
+        ->leftJoin('locations', 'locations.location_id', '=', 'palets.location_id')
+        ->whereNull('palets.albara_sortida')
+        ->get();
+        
+        echo json_encode($bloquejats);
+
+        } else {
+
+        $bloquejats= Bloquejats::select('bloquejats.bloquejat_id','palets.sscc', 'clients.description_client','products.description_prod', 'palets.caducitat', 'locations.location_description', 'palets.client_id')
+        ->leftJoin('palets', 'palets.sscc','=', 'bloquejats.sscc')
+        ->leftJoin('clients', 'clients.client_id','=', 'palets.client_id')
+        ->leftJoin('products', 'products.product_id','=', 'palets.product_id')
+        ->leftJoin('locations', 'locations.location_id', '=', 'palets.location_id')
+        ->where('palets.client_id', '=', $client_id)
+        ->whereNull('palets.albara_sortida')
+        ->get();
+        
+        echo json_encode($bloquejats);
+        }
+    }
+
+    public function getBloquejatsEdit(){
 
         $bloquejats= Bloquejats::select('bloquejats.bloquejat_id','palets.sscc', 'clients.description_client','products.description_prod', 'palets.caducitat', 'locations.location_description')
         ->leftJoin('palets', 'palets.sscc','=', 'bloquejats.sscc')
